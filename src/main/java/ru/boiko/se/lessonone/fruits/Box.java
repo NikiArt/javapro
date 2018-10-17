@@ -32,9 +32,7 @@ public class Box<T extends Fruit> {
     }
 
     public boolean pass(Box anotherBox) {
-        for (int i = 0; i < anotherBox.getQuantity().size(); i++) {
-            quantity.add((T) anotherBox.getQuantity().get(i));
-        }
+            quantity.addAll(anotherBox.getQuantity());
         return true;
     }
 }
