@@ -14,6 +14,11 @@ public class ChangeArrayPlace<T> {
         this.array = array;
     }
 
+    /**
+     * @param valueFirst  - первое число
+     * @param valueSecond - второе число
+     *                    меняем их местами
+     */
     public T[] change(final int valueFirst, final int valueSecond) {
         T[] arrayTemp = array.clone();
         array[valueSecond - 1] = arrayTemp[valueFirst - 1];
@@ -28,6 +33,9 @@ public class ChangeArrayPlace<T> {
         System.out.println();
     }
 
+    /**
+     * конвертируем массив в список
+     */
     public void convertToArrayList() {
         arrayList.clear();
         for (T value : array) {
