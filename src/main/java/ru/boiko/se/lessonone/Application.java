@@ -51,10 +51,10 @@ public class Application {
          * @see Box#compare(Box) (Box)  (Fruit)  - сравниваем вес фруктов в коробках
          * @see Box#pass(Box)  (Fruit)  - перекладываем фрукты в коробку. В качестве аругмента указана коробка, из которой пересыпаем
          */
-        Box<Apple> boxAppleFirst = new Box();
+        final Box<Apple> boxAppleFirst = new Box();
         boxAppleFirst.addSome(new Apple(), 7);
 
-        Box<Apple> boxAppleSecond = new Box();
+        final Box<Apple> boxAppleSecond = new Box();
         boxAppleSecond.add(new Apple());
         boxAppleSecond.add(new Apple());
         boxAppleSecond.add(new Apple());
@@ -63,10 +63,10 @@ public class Application {
         boxAppleSecond.add(new Apple());
         boxAppleSecond.add(new Apple());
 
-        Box<Apple> boxAppleThird = new Box();
+        final Box<Apple> boxAppleThird = new Box();
         boxAppleThird.addSome(new Apple(), 3);
 
-        Box<Orange> boxOrangeFirst = new Box();
+        final Box<Orange> boxOrangeFirst = new Box();
         boxOrangeFirst.addSome(new Orange(), 7);
 
         System.out.println("Вес коробки boxAppleFirst (" + boxAppleFirst.getWeight() + ") и вес коробки boxAppleSecond (" + boxAppleSecond.getWeight() + ") " + (boxAppleFirst.compare(boxAppleSecond) ? "совпадает" : "не совпадает"));
