@@ -90,7 +90,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>ru.boiko.se.lessonone.Application</mainClass>
+                <mainClass>ru.boiko.se.lessontwo.App</mainClass>
               </manifest>
             </archive>
           </configuration>
