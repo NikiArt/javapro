@@ -178,14 +178,9 @@ public class RegistryWindow extends JFrame {
             packet.setNick(nickInput.getText());
             packet.setEmail(emailInput.getText());
             messageSender.send(objectMapper.writeValueAsString(packet));
+        } else {
+            WorkWindows.getInstance().getLoginWindow().setVisible(true);
+            WorkWindows.getInstance().getRegistryWindow().setVisible(false);
         }
-        /*WorkWindows.getInstance().getRegistryWindow().setVisible(false);
-        loginInput.setText("");
-        passwordInput.setText("");
-        passwordRepeatInput.setText("");
-        nickInput.setText("");
-        emailInput.setText("");
-        WorkWindows.getInstance().getLoginWindow().setVisible(true);*/
-
     }
 }

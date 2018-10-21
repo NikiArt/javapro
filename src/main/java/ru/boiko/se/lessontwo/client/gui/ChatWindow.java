@@ -17,6 +17,7 @@ import java.awt.event.WindowListener;
 public class ChatWindow extends JFrame {
 
     private JButton sendButton;
+    private JButton changeNickButton;
     private JList userList;
     private JScrollPane userScroll;
     private JScrollPane chatScroll;
@@ -37,6 +38,7 @@ public class ChatWindow extends JFrame {
         chatScroll = new JScrollPane();
         chatArea = new JTextArea();
         sendButton = new JButton();
+        changeNickButton = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowListener() {

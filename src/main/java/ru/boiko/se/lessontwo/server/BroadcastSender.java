@@ -151,6 +151,7 @@ public class BroadcastSender implements Runnable{
         System.out.println(message);
     }
 
+    @SneakyThrows
     private String getUserNick(DataOutputStream dataOutputStream) {
         String login = ActiveUsers.getInstance().getActiveUsers().get(dataOutputStream);
         User user = Users.getInstance().findByLogin(login);
