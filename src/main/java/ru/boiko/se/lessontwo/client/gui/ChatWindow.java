@@ -88,6 +88,8 @@ public class ChatWindow extends JFrame {
         chatScroll.setViewportView(chatArea);
 
         sendButton.setText("Отправить");
+        changeNickButton.setText("Сменить ник");
+        changeNickButton.addActionListener(event -> changeNick());
         sendButton.addActionListener(event -> send());
         inputText.addActionListener(event -> send());
         userList.setLayoutOrientation(JList.VERTICAL);
@@ -102,6 +104,7 @@ public class ChatWindow extends JFrame {
                                         .addComponent(chatScroll, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(changeNickButton, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                                         .addComponent(userScroll)
                                         .addComponent(sendButton, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)))
         );
@@ -109,8 +112,11 @@ public class ChatWindow extends JFrame {
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(chatScroll)
-                                        .addComponent(userScroll, GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(changeNickButton)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(userScroll, GroupLayout.PREFERRED_SIZE, 379, Short.MAX_VALUE))
+                                        .addComponent(chatScroll))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(inputText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -119,6 +125,12 @@ public class ChatWindow extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+
+    private void changeNick() {
+        WorkWindows.getInstance().getChatWindow().setVisible(false);
+        WorkWindows.getInstance().getChangeNickWindow().setVisible(true);
+        WorkWindows.getInstance().getChangeNickWindow().setUser(user);
     }
 
     @SneakyThrows

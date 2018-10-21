@@ -2,10 +2,7 @@ package ru.boiko.se.lessontwo.client;
 
 import lombok.SneakyThrows;
 import ru.boiko.se.lessontwo.Config;
-import ru.boiko.se.lessontwo.client.gui.ChatWindow;
-import ru.boiko.se.lessontwo.client.gui.LoginWindow;
-import ru.boiko.se.lessontwo.client.gui.RegistryWindow;
-import ru.boiko.se.lessontwo.client.gui.WorkWindows;
+import ru.boiko.se.lessontwo.client.gui.*;
 
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -19,6 +16,7 @@ public class Client {
     private LoginWindow loginWindow;
     private ChatWindow chatWindow;
     private RegistryWindow registryWindow;
+    private ChangeNickWindow changeNickWindow;
 
     @SneakyThrows
     public Client() {
@@ -33,10 +31,11 @@ public class Client {
         loginWindow = new LoginWindow(messageSender);
         WorkWindows.getInstance().setLoginWindow(loginWindow);
         chatWindow = new ChatWindow(messageSender);
-
         WorkWindows.getInstance().setChatWindow(chatWindow);
         registryWindow = new RegistryWindow(messageSender);
         WorkWindows.getInstance().setRegistryWindow(registryWindow);
+        changeNickWindow = new ChangeNickWindow(messageSender);
+        WorkWindows.getInstance().setChangeNickWindow(changeNickWindow);
     }
 
     @SneakyThrows

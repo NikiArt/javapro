@@ -33,8 +33,18 @@ public class MessageListener implements Runnable{
             if (packet.getType() == PacketType.REGISTRY) { regisrty(packet); }
             if (packet.getType() == PacketType.REFRESH_USER_LIST) { refreshUserList(packet); }
             if (packet.getType() == PacketType.MESSAGE) { writeMessage(packet); }
+            if (packet.getType() == PacketType.CHANGE_NICK) { changeNick(packet); }
         }
         run();
+    }
+
+    private void changeNick(Packet packet) {
+        if (packet.getSuccess()) {
+            WorkWindows.getInstance().getChangeNickWindow().setVisible(false);
+            WorkWindows.getInstance().getChatWindow().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(WorkWindows.getInstance().getLoginWindow(),packet.getMessage());
+        }
     }
 
     private void writeMessage(Packet packet) {

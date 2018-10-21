@@ -46,6 +46,19 @@ public class Users{
     }
 
     @SneakyThrows
+    public boolean changeNick(Packet packet) {
+        DbTasks dbTasks = new DbTasks();
+        if (packet.getNick() == null) return false;
+        @Nullable final User userCheck = dbTasks.getUserByNick(packet.getNick());
+        if (userCheck != null) return false;
+        @Nullable final User user = dbTasks.getUser(packet.getLogin());
+        dbTasks.update(user);
+        dbTasks.commit();
+        dbTasks.disconnect();
+        return true;
+    }
+
+    @SneakyThrows
     public boolean regisrty(Packet packet) {
         DbTasks dbTasks = new DbTasks();
         if (dbTasks.getUser(packet.getLogin()) != null) {

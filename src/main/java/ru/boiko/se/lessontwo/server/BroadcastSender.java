@@ -44,12 +44,27 @@ public class BroadcastSender implements Runnable{
                 if (packet.getType() == PacketType.REGISTRY) { registry(packet); }
                 if (packet.getType() == PacketType.MESSAGE) { message(packet); }
                 if (packet.getType() == PacketType.LOGOUT) { logout(packet); }
+                if (packet.getType() == PacketType.CHANGE_NICK) { changeNick(packet); }
             } catch (Exception e) {
                 send(currentMessage);
             }
 
         }
         run();
+    }
+
+    @SneakyThrows
+    private void changeNick(Packet packet) {
+        Packet packetRequest = new Packet();
+        packetRequest.setType(PacketType.CHANGE_NICK);
+        if (Users.getInstance().changeNick(packet)) {
+            packetRequest.setSuccess(true);
+            packetRequest.setMessage("Success");
+        } else {
+            packetRequest.setSuccess(false);
+            packetRequest.setMessage("Такой никнейм уже используется");
+        }
+        send(objectMapper.writeValueAsString(packetRequest));
     }
 
     @SneakyThrows

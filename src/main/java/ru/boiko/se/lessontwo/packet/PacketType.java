@@ -12,6 +12,7 @@ public enum PacketType {
 
     MESSAGE,
     PRIVATE_MESSAGE,
-    REFRESH_USER_LIST
+    REFRESH_USER_LIST,
+    CHANGE_NICK
 
 }

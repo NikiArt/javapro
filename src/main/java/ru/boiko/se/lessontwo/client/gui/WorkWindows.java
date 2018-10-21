@@ -10,6 +10,7 @@ public class WorkWindows {
     private LoginWindow loginWindow;
     private ChatWindow chatWindow;
     private RegistryWindow registryWindow;
+    private ChangeNickWindow changeNickWindow;
 
 
 

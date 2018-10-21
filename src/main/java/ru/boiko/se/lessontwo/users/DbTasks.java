@@ -1,5 +1,8 @@
 package ru.boiko.se.lessontwo.users;
 
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -33,5 +36,13 @@ public class DbTasks  extends DbConnectionService{
 
     public void disconnect() {
         sqlSession.close();
+    }
+
+    public void update(User user) {
+        userRepository.update(user);
+    }
+
+    public User getUserByNick(String nick) {
+        return userRepository.getUserByNick(nick);
     }
 }
