@@ -49,6 +49,16 @@
       <version>2.9.7</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>RELEASE</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -90,7 +100,7 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <mainClass>ru.boiko.se.lessonone.Application</mainClass>
+                <mainClass>ru.boiko.se.lessontwo.App</mainClass>
               </manifest>
             </archive>
           </configuration>
