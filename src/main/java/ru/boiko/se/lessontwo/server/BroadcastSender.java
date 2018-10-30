@@ -31,7 +31,6 @@ public class BroadcastSender implements Runnable{
     }
 
     @Override
-    //@SneakyThrows
     public void run() {
         String currentMessage = "";
         try {
@@ -159,6 +158,10 @@ public class BroadcastSender implements Runnable{
         }
     }
 
+
+    /**
+     *  @see BroadcastSender#changeUserList()  - отправляет обновленный список пользователей клиентам
+     */
     @SneakyThrows
     private void changeUserList() {
         Packet requestPacket = new Packet();
