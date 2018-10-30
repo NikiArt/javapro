@@ -8,6 +8,7 @@ import ru.boiko.se.lessontwo.users.DbTasks;
 import ru.boiko.se.lessontwo.users.User;
 import ru.boiko.se.lessontwo.users.Users;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,5 +59,15 @@ public class AppTest
         User user = dbTasks.getUser("admin");
         System.out.println(user);
         dbTasks.disconnect();
+    }
+
+    @Test
+    @SneakyThrows
+    public void fileTest() {
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter("chatlog.txt", true));
+        fileWriter.write("1\n");
+        fileWriter.write("2\n");
+        fileWriter.write("3\n");
+        fileWriter.close();
     }
 }

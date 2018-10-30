@@ -8,16 +8,19 @@ import ru.boiko.se.lessontwo.users.ActiveUsers;
 import ru.boiko.se.lessontwo.users.User;
 import ru.boiko.se.lessontwo.users.Users;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BroadcastSender implements Runnable{
     private DataInputStream incomingMessage;
     private DataOutputStream outgoingMessage;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final Socket socket;
+    private BufferedWriter fileWriter;
+    private BufferedReader fileReader;
 
 
     @SneakyThrows
@@ -121,6 +124,7 @@ public class BroadcastSender implements Runnable{
             requestPacket.setPassword(packet.getPassword());
             ActiveUsers.getInstance().getActiveUsers().put(outgoingMessage, packet.getLogin());
             changeUserList();
+            sendLastMessages();
 
             Packet packetHello = new Packet();
             packetHello.setType(PacketType.MESSAGE);
@@ -133,6 +137,26 @@ public class BroadcastSender implements Runnable{
             requestPacket.setSuccess(false);
         }
         send(objectMapper.writeValueAsString(requestPacket));
+    }
+
+    @SneakyThrows
+    private void sendLastMessages() {
+        File file = new File("chatlog.txt");
+        if(file.exists() && !file.isDirectory()) {
+            fileReader = new BufferedReader(new FileReader("chatlog.txt"));
+            String string;
+            List<String> allMessages = new ArrayList<>();
+            while((string = fileReader.readLine()) != null)
+                allMessages.add(string);
+            fileReader.close();
+            List<String> lastMessages = (allMessages.size() > 100) ? allMessages.subList(allMessages.size()-101,allMessages.size()-1) : allMessages;
+            for (String currentString: lastMessages) {
+                Packet packetHello = new Packet();
+                packetHello.setType(PacketType.MESSAGE);
+                packetHello.setMessage(currentString);
+                outgoingMessage.writeUTF(objectMapper.writeValueAsString(packetHello));
+            }
+        }
     }
 
     @SneakyThrows
@@ -151,13 +175,20 @@ public class BroadcastSender implements Runnable{
         }
     }
 
-    @SneakyThrows
+    //@SneakyThrows
     private void message(Packet packet) {
-        for (HashMap.Entry<DataOutputStream, String> entry : ActiveUsers.getInstance().getActiveUsers().entrySet()) {
-            DataOutputStream currentConnection = entry.getKey();
-            currentConnection.writeUTF(objectMapper.writeValueAsString(packet));
+        try {
+            for (HashMap.Entry<DataOutputStream, String> entry : ActiveUsers.getInstance().getActiveUsers().entrySet()) {
+                DataOutputStream currentConnection = entry.getKey();
+                currentConnection.writeUTF(objectMapper.writeValueAsString(packet));
+            }
+            System.out.println(packet.getMessage());
+            fileWriter = new BufferedWriter(new FileWriter("chatlog.txt", true));
+            fileWriter.write(packet.getMessage() + "\n");
+            fileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println(packet.getMessage());
     }
 
     @SneakyThrows
