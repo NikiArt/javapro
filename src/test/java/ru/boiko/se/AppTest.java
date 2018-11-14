@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import lombok.SneakyThrows;
 import org.junit.Test;
 import ru.boiko.se.lessonsix.ArrayConvert;
+import ru.boiko.se.lessonsix.OneFourArray;
 import ru.boiko.se.lessontwo.users.DbTasks;
 import ru.boiko.se.lessontwo.users.User;
 import ru.boiko.se.lessontwo.users.Users;
@@ -130,5 +131,33 @@ public class AppTest
             System.out.print(convertedArray[i]);
         }
         System.out.println();
+    }
+
+    @Test
+    public void testOneFourArrayEmpty() {
+        int[] arrayOF = {};
+        OneFourArray oneFourArray = new OneFourArray(arrayOF);
+        System.out.println("Array correct: " + oneFourArray.CheckCorrect());
+    }
+
+    @Test
+    public void testOneFourArrayOnlyOne() {
+        int[] arrayOF = {1, 1, 1, 1};
+        OneFourArray oneFourArray = new OneFourArray(arrayOF);
+        System.out.println("Array correct: " + oneFourArray.CheckCorrect());
+    }
+
+    @Test
+    public void testOneFourArrayOnlyFour() {
+        int[] arrayOF = {4, 4, 4};
+        OneFourArray oneFourArray = new OneFourArray(arrayOF);
+        System.out.println("Array correct: " + oneFourArray.CheckCorrect());
+    }
+
+    @Test
+    public void testOneFourArrayNormal() {
+        int[] arrayOF = {1, 4, 4, 1, 1, 1};
+        OneFourArray oneFourArray = new OneFourArray(arrayOF);
+        System.out.println("Array correct: " + oneFourArray.CheckCorrect());
     }
 }

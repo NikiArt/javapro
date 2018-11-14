@@ -9,5 +9,9 @@ public class App {
             System.out.print(convertedArray[i]);
         }
         System.out.println();
+
+        int[] arrayOF = {1, 4, 1, 1, 1, 4};
+        OneFourArray oneFourArray = new OneFourArray(arrayOF);
+        System.out.println("Array correct: " + oneFourArray.CheckCorrect());
     }
 }
