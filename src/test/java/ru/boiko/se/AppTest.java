@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import lombok.SneakyThrows;
 import org.junit.Test;
+import ru.boiko.se.lessonsix.ArrayConvert;
 import ru.boiko.se.lessontwo.users.DbTasks;
 import ru.boiko.se.lessontwo.users.User;
 import ru.boiko.se.lessontwo.users.Users;
@@ -69,5 +70,65 @@ public class AppTest
         fileWriter.write("2\n");
         fileWriter.write("3\n");
         fileWriter.close();
+    }
+
+    @Test
+    public void testArrayConvertEmpty() {
+        Integer[] array = {};
+        ArrayConvert arrayConvert = new ArrayConvert(array);
+        Integer[] convertedArray = arrayConvert.Convert();
+        for (int i = 0; i < convertedArray.length; i++) {
+            System.out.print(convertedArray[i]);
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void testArrayConvertOneFour() {
+        Integer[] array = {4};
+        ArrayConvert arrayConvert = new ArrayConvert(array);
+        Integer[] convertedArray = arrayConvert.Convert();
+        for (int i = 0; i < convertedArray.length; i++) {
+            System.out.print(convertedArray[i]);
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void testArrayConvertNormal() {
+        Integer[] array = {1, 2, 4, 7, 2, 5};
+        ArrayConvert arrayConvert = new ArrayConvert(array);
+        Integer[] convertedArray = arrayConvert.Convert();
+        for (int i = 0; i < convertedArray.length; i++) {
+            System.out.print(convertedArray[i]);
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void testArrayConvertFewFour() {
+        Integer[] array = {1,4, 4, 7, 4, 5, 1};
+        ArrayConvert arrayConvert = new ArrayConvert(array);
+        Integer[] convertedArray = arrayConvert.Convert();
+        for (int i = 0; i < convertedArray.length; i++) {
+            System.out.print(convertedArray[i]);
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void testArrayConvertRandom() {
+        Integer[] array = new Integer[15];
+        for (int i = 0; i < array.length; i++){
+            array[i] = (int)(Math.random() * 10);
+            System.out.print(array[i]);
+        }
+        System.out.println("\n");
+        ArrayConvert arrayConvert = new ArrayConvert(array);
+        Integer[] convertedArray = arrayConvert.Convert();
+        for (int i = 0; i < convertedArray.length; i++) {
+            System.out.print(convertedArray[i]);
+        }
+        System.out.println();
     }
 }
