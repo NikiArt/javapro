@@ -53,6 +53,9 @@ public class MessageListener implements Runnable{
     }
 
 
+    /**
+     *  @see MessageListener#refreshUserList(Packet) - обновляет полученный список пользователей в окне чата
+     */
     private void refreshUserList(Packet packet) {
         try {
             ChatWindow chatWindow = WorkWindows.getInstance().getChatWindow();
