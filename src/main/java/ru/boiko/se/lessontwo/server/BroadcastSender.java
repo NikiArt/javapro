@@ -10,6 +10,7 @@ import ru.boiko.se.lessontwo.users.Users;
 
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ public class BroadcastSender implements Runnable{
         if (!currentMessage.isEmpty()) {
             try {
                 Packet packet = objectMapper.readValue(currentMessage, Packet.class);
+                writeLog(LocalDateTime.now() + ": " + packet.getType().name());
                 if (packet.getType() == PacketType.LOGIN) { login(packet); }
                 if (packet.getType() == PacketType.REGISTRY) { registry(packet); }
                 if (packet.getType() == PacketType.MESSAGE) { message(packet); }
@@ -91,7 +93,9 @@ public class BroadcastSender implements Runnable{
                 requestPacket.setLogin(packet.getLogin());
                 requestPacket.setType(PacketType.REGISTRY);
                 requestPacket.setSuccess(true);
-                requestPacket.setMessage("Пользователь " + packet.getLogin() + " успешно зарегистрирован");
+                String messageLog = "Пользователь " + packet.getLogin() + " успешно зарегистрирован";
+                requestPacket.setMessage(messageLog);
+                writeLog(LocalDateTime.now() + ": " + messageLog);
             }
         } else {
             requestPacket = packet;
@@ -144,9 +148,14 @@ public class BroadcastSender implements Runnable{
         if(file.exists() && !file.isDirectory()) {
             fileReader = new BufferedReader(new FileReader("chatlog.txt"));
             String string;
+            int index = -1;
             List<String> allMessages = new ArrayList<>();
-            while((string = fileReader.readLine()) != null)
-                allMessages.add(string);
+            while((string = fileReader.readLine()) != null) {
+                if (index >= 0) {
+                    allMessages.add(string);
+                }
+                index = string.lastIndexOf("MESSAGE");
+            }
             fileReader.close();
             List<String> lastMessages = (allMessages.size() > 100) ? allMessages.subList(allMessages.size()-101,allMessages.size()-1) : allMessages;
             for (String currentString: lastMessages) {
@@ -174,21 +183,22 @@ public class BroadcastSender implements Runnable{
         for (HashMap.Entry<DataOutputStream, String> entry : ActiveUsers.getInstance().getActiveUsers().entrySet()) {
             DataOutputStream currentConnection = entry.getKey();
             currentConnection.writeUTF(objectMapper.writeValueAsString(requestPacket));
-            System.out.println("Пользователю " + entry.getValue() + " отправлен список пользователей");
+            String messageLog = "Пользователю " + entry.getValue() + " отправлен список пользователей";
+            System.out.println(messageLog);
+            writeLog(LocalDateTime.now() + ": " + messageLog);
         }
     }
 
     //@SneakyThrows
     private void message(Packet packet) {
+        packet.setMessage(LocalDateTime.now() + ": " + packet.getMessage());
         try {
             for (HashMap.Entry<DataOutputStream, String> entry : ActiveUsers.getInstance().getActiveUsers().entrySet()) {
                 DataOutputStream currentConnection = entry.getKey();
                 currentConnection.writeUTF(objectMapper.writeValueAsString(packet));
             }
             System.out.println(packet.getMessage());
-            fileWriter = new BufferedWriter(new FileWriter("chatlog.txt", true));
-            fileWriter.write(packet.getMessage() + "\n");
-            fileWriter.close();
+            writeLog(packet.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -205,6 +215,13 @@ public class BroadcastSender implements Runnable{
         String login = ActiveUsers.getInstance().getActiveUsers().get(dataOutputStream);
         User user = Users.getInstance().findByLogin(login);
         return (user.getNick().isEmpty() ? user.getLogin() : user.getNick());
+    }
+
+    @SneakyThrows
+    private void writeLog(String message) {
+        fileWriter = new BufferedWriter(new FileWriter("chatlog.txt", true));
+        fileWriter.write(message + "\n");
+        fileWriter.close();
     }
 
 

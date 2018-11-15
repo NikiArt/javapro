@@ -1,9 +1,10 @@
 package ru.boiko.se.lessontwo.server;
 
 import lombok.SneakyThrows;
-import ru.boiko.se.lessontwo.packet.Packet;
-import ru.boiko.se.lessontwo.users.Users;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -15,7 +16,11 @@ public class Server {
     public Server() {
         executor = Executors.newCachedThreadPool();
         connections = new Connections(executor);
-        System.out.println("Сервер запущен, ожидаем подключения...");
+        String message = "Сервер запущен, ожидаем подключения...";
+        System.out.println(message);
+        final BufferedWriter fileWriter = new BufferedWriter(new FileWriter("chatlog.txt", true));
+        fileWriter.write( LocalDateTime.now() + ": " + message + "\n");
+        fileWriter.close();
     }
 
     @SneakyThrows
