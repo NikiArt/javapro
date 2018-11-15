@@ -3,7 +3,7 @@ package ru.boiko.se.lessonsix;
 public class OneFourArray {
     final int[] incomingArray;
 
-    public OneFourArray(int[] incomingArray) {
+    public OneFourArray(final int[] incomingArray) {
         this.incomingArray = incomingArray;
     }
 
