@@ -1,13 +1,12 @@
 package ru.boiko.se.lessontwo.users;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import lombok.SneakyThrows;
 import ru.boiko.se.lessontwo.packet.Packet;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Users{
@@ -17,7 +16,7 @@ public class Users{
     private Map<String, User> users = new LinkedHashMap<>();
 
 
-    private Users() throws IOException {
+    private Users() {
     }
 
     public static synchronized Users getInstance() throws IOException{
