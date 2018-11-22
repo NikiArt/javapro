@@ -11,7 +11,7 @@ public class AppTest {
 
     @AfterSuite
     public void testtwo() {
-        System.out.println("making BeforeSuite");
+        System.out.println("making AfterSuite");
     }
 
     @Test(priority = 7)
@@ -31,7 +31,7 @@ public class AppTest {
 
     @Test()
     public void testsix() {
-        System.out.println("making test. Priority default");
+        System.out.println("making test. Priority default (5)");
     }
 
 }
