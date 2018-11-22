@@ -2,6 +2,14 @@ package ru.boiko.se.lessonseven;
 
 import ru.boiko.se.lessonseven.annotations.*;
 
+/**
+ * @author Nikita Boiko
+ * @see AppTest - класс для написания тестов
+ * Аннотации BeforeSuite и AfterSuite - должны присутствовать в единичном экземпляре
+ * К аннотации Test можно указать приоритет запуска: 1 - самый высокий, 10 - самый низкий,
+ * 5 - значение по умолчанию
+ */
+
 public class AppTest {
 
     @BeforeSuite
